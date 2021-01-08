@@ -1,0 +1,18 @@
+﻿<wpf:ResourceDictionary xml:space="preserve" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:s="clr-namespace:System;assembly=mscorlib" xmlns:ss="urn:shemas-jetbrains-com:settings-storage-xaml" xmlns:wpf="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=93a4fa3b_002D3831_002D4e79_002Da3f0_002D4f8c426eb2c0/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="HttpClientTest" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
+  &lt;TestAncestor&gt;
+    &lt;TestId&gt;xUnit::899C8080-55B2-41BF-B3AE-CA7E9296A4C6::net5.0::Tests.GetTest.HttpGetHeaderTest&lt;/TestId&gt;
+    &lt;TestId&gt;xUnit::899C8080-55B2-41BF-B3AE-CA7E9296A4C6::net5.0::Tests.GetTest.HttpGetNotFoundTest&lt;/TestId&gt;
+    &lt;TestId&gt;xUnit::899C8080-55B2-41BF-B3AE-CA7E9296A4C6::net5.0::Tests.GetTest.HttpGetNotFoundDomainTest&lt;/TestId&gt;
+    &lt;TestId&gt;xUnit::899C8080-55B2-41BF-B3AE-CA7E9296A4C6::net5.0::Tests.GetTest.HttpGetTimeoutTest&lt;/TestId&gt;
+    &lt;TestId&gt;xUnit::899C8080-55B2-41BF-B3AE-CA7E9296A4C6::net5.0::Tests.GetTest.HttpGetTimeoutServiceTest&lt;/TestId&gt;
+  &lt;/TestAncestor&gt;
+&lt;/SessionState&gt;</s:String>
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=9eaadc87_002D41a1_002D4970_002D83fc_002D26779cd6b2df/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="HttpGetTest" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
+  &lt;TestAncestor&gt;
+    &lt;TestId&gt;xUnit::899C8080-55B2-41BF-B3AE-CA7E9296A4C6::net5.0::Tests.GetTest&lt;/TestId&gt;
+  &lt;/TestAncestor&gt;
+&lt;/SessionState&gt;</s:String>
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=c3f73887_002D90c6_002D458c_002D8222_002D897b21c830f7/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="HttpGetTimeoutServiceTest" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
+  &lt;Project Location="/home/gabriel/Pocspace/poc_http_client/src/Tests/Tests" Presentation="&amp;lt;Tests&amp;gt;" /&gt;
+&lt;/SessionState&gt;</s:String></wpf:ResourceDictionary>
