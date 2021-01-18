@@ -1,5 +1,6 @@
 using System;
 using System.Net.Http;
+using Microsoft.Extensions.Logging;
 using poc_http_client.Infra;
 
 
@@ -12,7 +13,7 @@ namespace poc_http_client.Application
         private HttpClient _client;
         
         public Builder(){}
-        public Builder(ILogger logger)
+        public Builder(ILogger<Builder> logger)
         {
             _cache = new Cache(EnvironmentVariables._REDIS_BASE_URL);
             _logger = logger;
