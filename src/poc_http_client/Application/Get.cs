@@ -1,11 +1,9 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
-using Microsoft.Extensions.Logging;
 using poc_http_client.Infra;
 using poc_http_client.Models;
+
 
 namespace poc_http_client.Application
 {
@@ -44,7 +42,7 @@ namespace poc_http_client.Application
         }
         
         ///  <param name="ms">default 1000 ms</param>
-        public RequestBase RetryAfterMs(uint ms)
+        public Get RetryAfterMs(uint ms)
         {
             base.RetryAfterMs(ms);
             return this;

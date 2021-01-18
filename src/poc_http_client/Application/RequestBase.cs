@@ -2,10 +2,12 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
+using System.Net.Http.Json;
 using System.Threading.Tasks;
-using Microsoft.Extensions.Logging;
+using poc_http_client.Models;
 using Polly;
 using Polly.Retry;
+
 
 namespace poc_http_client.Application
 {
@@ -17,6 +19,8 @@ namespace poc_http_client.Application
         protected string _method;
         private int _retry = 0;
         private uint _retryAfterMs = 1000; //default 
+        private System.Net.Http.HttpContent _dataPayload;
+        
         
         private ILogger _logger;
         private HttpClient _client;
@@ -46,6 +50,12 @@ namespace poc_http_client.Application
             _url = url;
             return this;
         }
+       
+       protected RequestBase AddBody(System.Net.Http.HttpContent payload)
+       {
+           _dataPayload = payload;
+           return this;
+       }
         protected RequestBase AddTimeout(uint ms)
         {
             _timeout = ms;
@@ -64,9 +74,6 @@ namespace poc_http_client.Application
 
         public async Task<ResponseBase> Send()
         {
-            
-          
-
             try
             {
                 if (_retry > 0)
@@ -119,9 +126,12 @@ namespace poc_http_client.Application
         {
             HttpRequestMessage requestMessage = new HttpRequestMessage();
             requestMessage.Method = new HttpMethod(_method);
-            
-            
             requestMessage.RequestUri = new Uri(_url);
+            
+            if (!Equals(_dataPayload, null) && _method !="GET")
+            {
+                requestMessage.Content = _dataPayload;
+            }
 
             if (!Equals(null,_headers))
             {
@@ -137,7 +147,7 @@ namespace poc_http_client.Application
             {
                 _client.Timeout =  TimeSpan.FromMilliseconds(_timeout) ;
             }
-
+            
             HttpResponseMessage result = await _client.SendAsync(requestMessage);
             return result;
         }

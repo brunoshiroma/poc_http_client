@@ -1,7 +1,7 @@
 using System;
 using System.Net.Http;
-using Microsoft.Extensions.Logging;
 using poc_http_client.Infra;
+
 
 namespace poc_http_client.Application
 {
@@ -12,11 +12,11 @@ namespace poc_http_client.Application
         private HttpClient _client;
         
         public Builder(){}
-        public Builder(ILogger<Builder> logger)
+        public Builder(ILogger logger)
         {
-            //_cache = new Cache(EnvironmentVariables._REDIS_BASE_URL);
+            _cache = new Cache(EnvironmentVariables._REDIS_BASE_URL);
             _logger = logger;
-            //_client = new HttpClient();
+            _client = new HttpClient();
         }
         
      
@@ -27,9 +27,16 @@ namespace poc_http_client.Application
             throw new System.NotImplementedException();
         }
 
-        public void Get()
+        public Get Get()
         {
-           // return new Get(_cache, _logger, _client);
+            return new Get(_cache, _logger, _client);
         }
+        
+        public Post Post()
+        {
+            return new Post( _logger, _client);
+        }
+        
+        
     }
 }

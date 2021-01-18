@@ -4,7 +4,8 @@ namespace poc_http_client.Application
     {
         
         ResponseBase Default();
-        void Get();
+        Get Get();
+        Post Post();
     }
 }
 

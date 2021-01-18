@@ -13,6 +13,7 @@
 
   <ItemGroup>
     <Compile Remove="Tests\**" />
+    <Compile Remove="Models\PayloadType.cs" />
   </ItemGroup>
 
   <ItemGroup>

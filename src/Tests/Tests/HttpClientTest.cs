@@ -1,4 +1,6 @@
 using System;
+using System.Linq;
+using System.Net.Http.Json;
 using Microsoft.Extensions.Logging;
 using poc_http_client.Application;
 using poc_http_client.Infra;
@@ -32,9 +34,7 @@ namespace Tests
             //uint statusCode = result.StatusCode();
             Assert.Equal(true, true);
         }
-        #region MyRegion
-/****
-        
+        [Fact]
         public async void HttpGetHeadersTest()
         {
             var result = await _client.Get().Url("http://localhost:3000/headers").Send();
@@ -56,7 +56,7 @@ namespace Tests
             Assert.True(keyMatch);
         }
         
-        
+        [Fact]
         public async  void HttpGetContentSerializedTest()
         {
             var result = await  _client.Get().Url("http://localhost:3000/content").Send();
@@ -66,7 +66,7 @@ namespace Tests
             Assert.Equal(200u , statusCode);
         }
 
-        
+        [Fact]
         public async  void HttpGetContentStringTest()
         {
             var result = await  _client.Get().Url("http://localhost:3000/content").Send();
@@ -76,7 +76,7 @@ namespace Tests
             Assert.Equal(200u , statusCode);
         }
         
-        
+        [Fact]
         public async  void HttpGetTimeoutServiceTest()
         {
             var result = await  _client.Get().Url("http://localhost:3000/timeout").Send();
@@ -84,7 +84,7 @@ namespace Tests
             Assert.Equal(408u , statusCode);
         }
 
-        
+        [Fact]
         public async  void HttpGetSetTimeoutTest()
         {
             var result = await  _client.Get().AddTimeout(1).Url("http://localhost:3000/timeout").Send();
@@ -92,7 +92,7 @@ namespace Tests
             Assert.Equal(408u , statusCode);
         }
  
-        
+        [Fact]
         public async  void HttpGetNotFoundDomainTest()
         {
             var result = await  _client.Get().Url("https://www.go2ogle.com").Send();
@@ -105,7 +105,7 @@ namespace Tests
        
         
         
-        
+        [Fact]
         public async  void HttpGetHeaderTest()
         {
             var result = await _client.Get().Url("https://www.google.com").Send();
@@ -113,7 +113,7 @@ namespace Tests
             Assert.Equal(200u, statusCode);
         }
         
-        
+        [Fact]
         public async  void HttpGetCachedTest()
         {
             
@@ -125,7 +125,7 @@ namespace Tests
             Assert.Equal(resultOutCached.Content(), resultCached.Content());
         }
         
-        
+        [Fact]
         public async  void HttpGetCacheNotConnectTest()
         {
             
@@ -137,7 +137,7 @@ namespace Tests
             Assert.Equal(resultOutCached.Content(), resultCached.Content());
         }
         
-        
+        [Fact]
         public async  void HttpGetRetryTest()
         {
             var result = await _client
@@ -149,7 +149,7 @@ namespace Tests
             Assert.Equal(200u, statusCode);
         }
         
-        
+        [Fact]
         public async  void HttpGetRetryInUseTest()
         {
             var result = await _client
@@ -162,7 +162,82 @@ namespace Tests
             uint statusCode = result.StatusCode();
             Assert.Equal(408u, statusCode);
         }
-        ****/
-        #endregion
     }
+
+    public class PostTest
+    {
+        private readonly IBuilder _client;
+
+        public PostTest(IBuilder client)
+        {
+            _client = client;
+        }
+
+        [Fact]
+        public async void HttpPostNotFoundTest()
+        {
+            var result = await _client.Post().Url("https://www.google.com/181u81u8").Send();
+            uint statusCode = result.StatusCode();
+            Assert.Equal(404u, statusCode);  
+        }
+        
+        [Fact]
+        public async void HttpPostSendJsonTest()
+        {
+
+            var message = new Content {
+                Message = "teste_body"
+            };
+            var json = JsonContent.Create(message);
+            var result = await _client.Post().Url("http://localhost:3000/content")
+                .AddJson(json)
+                .Send();
+            uint statusCode = result.StatusCode();
+            Assert.Equal(200u, statusCode);  
+        }
+        
+        
+        [Fact]
+        public async void HttpPostSendJsonWithResponseTest()
+        {
+
+            var message = new Content {
+                Message = "ping"
+            };
+            var json = JsonContent.Create(message);
+            ResponseBase result = await _client.Post().Url("http://localhost:3000/ping_pong")
+                .AddJson(json)
+                .Send();
+            uint statusCode = result.StatusCode();
+            var content = result.Content<Content>();
+            Assert.Equal(200u, statusCode);  
+            Assert.Equal("pong", content.Message);
+        }
+        
+        [Fact]
+        public async void HttpPostSendJsonWithResponseHeadersTest()
+        {
+           ResponseBase result = await _client
+                .Post()
+                .Url("http://localhost:3000/headers")
+                .Send();
+            uint statusCode = result.StatusCode();
+            
+            var headers = result.Headers();
+
+            bool keyMatch = false;
+                
+            while (headers.MoveNext())
+            {
+                if (headers.Current.Key == "X-TEST" && headers.Current.Value.ToArray()[0] == "ok" ) 
+                {
+                    keyMatch = true;
+                }
+            }
+            Assert.Equal(200u, statusCode);  
+            Assert.True(keyMatch);
+        }
+        
+    }
+
 }
