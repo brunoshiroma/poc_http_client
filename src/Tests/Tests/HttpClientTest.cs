@@ -11,7 +11,7 @@ namespace Tests
 {
     public class Content
     {
-        public string Message { get; set; }
+        public string message { get; set; }
     }
 
     public class GetTest
@@ -62,7 +62,7 @@ namespace Tests
             var result = await  _client.Get().Url("http://localhost:3000/content").Send();
             uint statusCode = result.StatusCode();
             Content message = result.Content<Content>();
-            Assert.Equal("Ok", message.Message);
+            Assert.Equal("Ok", message.message);
             Assert.Equal(200u , statusCode);
         }
 
@@ -118,8 +118,8 @@ namespace Tests
         {
             
             
-            var resultOutCached = await _client.Get().Url("http://localhost:3000/content").Send(true, "mockcached", TTLUnit.Minutes, 1);
-            var resultCached = await _client.Get().Url("http://localhost:3000/content").Send(true, "mockcached", TTLUnit.Minutes, 1);
+            var resultOutCached = await _client.Get().Url("http://localhost:3000/content").Send( "mockcached", TTLUnit.Minutes, 1);
+            var resultCached = await _client.Get().Url("http://localhost:3000/content").Send( "mockcached", TTLUnit.Minutes, 1);
             uint statusCode = resultCached.StatusCode();
             Assert.Equal(304u, statusCode);
             Assert.Equal(resultOutCached.Content(), resultCached.Content());
@@ -130,8 +130,8 @@ namespace Tests
         {
             
             
-            var resultOutCached = await _client.Get().Url("http://localhost:3000/content").Send(true, "mockcached", TTLUnit.Minutes, 1);
-            var resultCached = await _client.Get().Url("http://localhost:3000/content").Send(true, "mockcached", TTLUnit.Minutes, 1);
+            var resultOutCached = await _client.Get().Url("http://localhost:3000/content").Send("mockcached", TTLUnit.Minutes, 1);
+            var resultCached = await _client.Get().Url("http://localhost:3000/content").Send("mockcached", TTLUnit.Minutes, 1);
             uint statusCode = resultCached.StatusCode();
             Assert.Equal(200u, statusCode);
             Assert.Equal(resultOutCached.Content(), resultCached.Content());
@@ -144,7 +144,7 @@ namespace Tests
                 .Get()
                 .Url("http://localhost:3000/content")
                 .Retry(2)
-                .Send(true, "mockcached", TTLUnit.Minutes, 1);
+                .Send("mockcached", TTLUnit.Minutes, 1);
             uint statusCode = result.StatusCode();
             Assert.Equal(200u, statusCode);
         }
@@ -186,7 +186,7 @@ namespace Tests
         {
 
             var message = new Content {
-                Message = "teste_body"
+                message = "teste_body"
             };
             var json = JsonContent.Create(message);
             var result = await _client.Post().Url("http://localhost:3000/content")
@@ -202,7 +202,7 @@ namespace Tests
         {
 
             var message = new Content {
-                Message = "ping"
+                message = "ping"
             };
             var json = JsonContent.Create(message);
             ResponseBase result = await _client.Post().Url("http://localhost:3000/ping_pong")
@@ -211,7 +211,7 @@ namespace Tests
             uint statusCode = result.StatusCode();
             var content = result.Content<Content>();
             Assert.Equal(200u, statusCode);  
-            Assert.Equal("pong", content.Message);
+            Assert.Equal("pong", content.message);
         }
         
         [Fact]
@@ -240,4 +240,74 @@ namespace Tests
         
     }
 
+     public class PutTest
+    {
+        private readonly IBuilder _client;
+
+        public PutTest(IBuilder client)
+        {
+            _client = client;
+        }
+       [Fact]
+        public async void HttpPutSendJsonWithResponseTest()
+        {
+            ResponseBase result = await _client
+                .Put()
+                .Url("http://localhost:3000/ping_pong")
+                .Send();
+            uint statusCode = result.StatusCode();
+            var content = result.Content<Content>();
+            Assert.Equal(200u, statusCode);  
+            Assert.Equal("pong_put", content.message);
+        }
+    }
+     
+     public class DeleteTest
+     {
+         private readonly IBuilder _client;
+
+         public DeleteTest(IBuilder client)
+         {
+             _client = client;
+         }
+
+     
+     
+         [Fact]
+         public async void HttpDeleteSendJsonWithResponseTest()
+         {
+             ResponseBase result = await _client.Delete()
+                 .Url("http://localhost:3000/ping_pong")
+                 .Send();
+             uint statusCode = result.StatusCode();
+             var content = result.Content<Content>();
+             Assert.Equal(200u, statusCode);  
+             Assert.Equal("pong_delete", content.message);
+         }
+     }
+     
+     public class PatchTest
+     {
+         private readonly IBuilder _client;
+
+         public PatchTest(IBuilder client)
+         {
+             _client = client;
+         }
+
+     
+     
+         [Fact]
+         public async void HttpDeleteSendJsonWithResponseTest()
+         {
+             ResponseBase result = await _client.Patch()
+                 .Url("http://localhost:3000/ping_pong")
+                 .Send();
+             uint statusCode = result.StatusCode();
+             var content = result.Content<Content>();
+             Assert.Equal(200u, statusCode);  
+             Assert.Equal("pong_patch", content.message);
+         }
+     }
+    
 }

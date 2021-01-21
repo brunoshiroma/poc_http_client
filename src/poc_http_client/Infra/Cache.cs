@@ -16,7 +16,7 @@ namespace poc_http_client.Infra
                 _connection = ConnectionMultiplexer.Connect(redisBaseUrl);
             }
         }
-
+       
         private TimeSpan timeSpanForTTLUnit(double time, TTLUnit ttlUnit)
         {
 

@@ -12,7 +12,6 @@ namespace poc_http_client.Application
         private ILogger _logger;
         private HttpClient _client;
         
-        public Builder(){}
         public Builder(ILogger<Builder> logger)
         {
             _cache = new Cache(EnvironmentVariables._REDIS_BASE_URL);
@@ -20,13 +19,13 @@ namespace poc_http_client.Application
             _client = new HttpClient();
         }
         
-     
-        
-        
-        public ResponseBase Default()
+        public Builder(ILogger<Builder> logger, HttpClient httpClient)
         {
-            throw new System.NotImplementedException();
+            _cache = new Cache(EnvironmentVariables._REDIS_BASE_URL);
+            _logger = logger;
+            _client = httpClient;
         }
+        
 
         public Get Get()
         {
@@ -36,6 +35,21 @@ namespace poc_http_client.Application
         public Post Post()
         {
             return new Post( _logger, _client);
+        }
+        
+        public Delete Delete()
+        {
+            return new Delete( _logger, _client);
+        }
+        
+        public Patch Patch()
+        {
+            return new Patch( _logger, _client);
+        }
+        
+        public Put Put()
+        {
+            return new Put( _logger, _client);
         }
         
         

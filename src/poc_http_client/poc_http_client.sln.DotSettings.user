@@ -8,11 +8,9 @@
     &lt;TestId&gt;xUnit::899C8080-55B2-41BF-B3AE-CA7E9296A4C6::net5.0::Tests.GetTest.HttpGetTimeoutServiceTest&lt;/TestId&gt;
   &lt;/TestAncestor&gt;
 &lt;/SessionState&gt;</s:String>
-	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=9eaadc87_002D41a1_002D4970_002D83fc_002D26779cd6b2df/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="HttpGetTest" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
-  &lt;TestAncestor&gt;
-    &lt;TestId&gt;xUnit::899C8080-55B2-41BF-B3AE-CA7E9296A4C6::net5.0::Tests.GetTest&lt;/TestId&gt;
-  &lt;/TestAncestor&gt;
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=9eaadc87_002D41a1_002D4970_002D83fc_002D26779cd6b2df/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="HttpGetTest" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
+  &lt;Project Location="/home/gabriel/Pocspace/poc_http_client/src/Tests/Tests" Presentation="&amp;lt;Tests&amp;gt;" /&gt;
 &lt;/SessionState&gt;</s:String>
-	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=c3f73887_002D90c6_002D458c_002D8222_002D897b21c830f7/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="HttpGetTimeoutServiceTest" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=c3f73887_002D90c6_002D458c_002D8222_002D897b21c830f7/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="HttpGetTimeoutServiceTest" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
   &lt;Project Location="/home/gabriel/Pocspace/poc_http_client/src/Tests/Tests" Presentation="&amp;lt;Tests&amp;gt;" /&gt;
 &lt;/SessionState&gt;</s:String></wpf:ResourceDictionary>

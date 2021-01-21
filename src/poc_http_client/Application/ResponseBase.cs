@@ -1,8 +1,9 @@
 using System;
 using System.Collections.Generic;
-using Newtonsoft.Json;
 using poc_http_client.Infra;
 using poc_http_client.Models;
+using  System.Text.Json ;
+
 
 namespace poc_http_client.Application
 {
@@ -52,10 +53,14 @@ namespace poc_http_client.Application
         }
         
 
-
+        /// <summary>
+        /// Adicao do tempo de timeout
+        /// </summary>
+        /// <param name="ms">default 10000</param>
         public T Content<T>()
         {
-            return JsonConvert.DeserializeObject<T>(_content);
+            
+            return System.Text.Json.JsonSerializer.Deserialize<T>(_content);
         }
         public string Content()
         {
@@ -83,9 +88,9 @@ namespace poc_http_client.Application
         public ResponseBase SaveCacheContent<T>(TTLUnit unitTtl, uint duration, string key)
         {
             
-            if (!Equals(_cache, null))
+            if (!Equals(_cache, null) && !Equals(_content, null))
             {
-                string dataString = JsonConvert.DeserializeObject<T>(_content).ToString();
+                string dataString = System.Text.Json.JsonSerializer.Deserialize<T>(_content).ToString();
                 _cache.Set(dataString, key, duration, unitTtl);
             }
 

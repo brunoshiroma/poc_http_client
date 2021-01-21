@@ -5,7 +5,7 @@ namespace poc_http_client.Application
 {
     public interface IGet
     {
-        Task<ResponseBase> Send(bool useCache, string key, TTLUnit ttlUnit, double time);
+        Task<ResponseBase> Send(string key, TTLUnit ttlUnit, double time);
         Task<ResponseBase> Send();
         Get Url(string url);
         Get AddTimeout(uint ms);

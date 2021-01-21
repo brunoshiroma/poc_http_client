@@ -1,13 +1,11 @@
 using System;
-using System.Collections.Generic;
+using Polly.Retry;
 using System.Linq;
 using System.Net.Http;
-using System.Net.Http.Json;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
-using poc_http_client.Models;
-using Polly;
-using Polly.Retry;
+using System.Collections.Generic;
+
 
 
 namespace poc_http_client.Application
@@ -20,7 +18,7 @@ namespace poc_http_client.Application
         protected string _method;
         private int _retry = 0;
         private uint _retryAfterMs = 1000; //default 
-        private System.Net.Http.HttpContent _dataPayload;
+        private HttpContent _dataPayload;
         
         
         private ILogger _logger;
@@ -77,8 +75,10 @@ namespace poc_http_client.Application
         {
             try
             {
+                
                 if (_retry > 0)
-                {   // verificar esse Excetion se obscura os outros   
+                {      
+                    _logger.LogInformation("Configurando retry tempo {0} quantidade de re tentativa{1}",_retryAfterMs, _retry );
                     _retryPolicy = new Infra.Retry().ConfigureRetry(_retryAfterMs, _retry);
                 }
           
@@ -89,15 +89,15 @@ namespace poc_http_client.Application
                 }
                 else
                 {
+
+                    
                     result = 
                         await _retryPolicy.ExecuteAsync<HttpResponseMessage>(async () =>
                         {
+                            _logger.LogInformation(" re tentativa");
                             return await internalSend();
                         });
                 }
-
-                
-
                 return new ResponseBase(
                     (uint) result.StatusCode.GetHashCode(),
                     result.Headers.GetEnumerator(),
@@ -106,6 +106,7 @@ namespace poc_http_client.Application
             }
             catch (System.Net.Http.HttpRequestException err)
             {
+                _logger.LogError("Erro http {0}", err.Message);
                 return new ResponseBase(
                     (uint) err.StatusCode.GetHashCode(),
                     err.Message
@@ -114,6 +115,7 @@ namespace poc_http_client.Application
             // timeout default 100 seconds
             catch (System.Threading.Tasks.TaskCanceledException err)
             {
+                _logger.LogError("Timeout ms time configurado {1} : {0} ", err.Message, _timeout != 0  ?  10000: _timeout );
                 return new ResponseBase(
                     408u, 
                     err.Message
