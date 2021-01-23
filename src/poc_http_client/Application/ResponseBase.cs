@@ -74,27 +74,5 @@ namespace poc_http_client.Application
         {
             return _headers;
         }
-
-        public ResponseBase SaveCacheContent(TTLUnit unitTtl, double duration, string key)
-        {
-            if (!Equals(_cache, null))
-            {
-                _cache.Set(_content, key, duration, unitTtl);
-            }
-
-            return this;
-        }
-        
-        public ResponseBase SaveCacheContent<T>(TTLUnit unitTtl, uint duration, string key)
-        {
-            
-            if (!Equals(_cache, null) && !Equals(_content, null))
-            {
-                string dataString = System.Text.Json.JsonSerializer.Deserialize<T>(_content).ToString();
-                _cache.Set(dataString, key, duration, unitTtl);
-            }
-
-            return this;
-        }
     }
 }

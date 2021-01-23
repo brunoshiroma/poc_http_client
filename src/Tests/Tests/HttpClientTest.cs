@@ -128,8 +128,6 @@ namespace Tests
         [Fact]
         public async  void HttpGetCacheNotConnectTest()
         {
-            
-            
             var resultOutCached = await _client.Get().Url("http://localhost:3000/content").Send("mockcached", TTLUnit.Minutes, 1);
             var resultCached = await _client.Get().Url("http://localhost:3000/content").Send("mockcached", TTLUnit.Minutes, 1);
             uint statusCode = resultCached.StatusCode();
@@ -190,7 +188,7 @@ namespace Tests
             };
             var json = JsonContent.Create(message);
             var result = await _client.Post().Url("http://localhost:3000/content")
-                .AddJson(json)
+                .AddJson<Content>(message)
                 .Send();
             uint statusCode = result.StatusCode();
             Assert.Equal(200u, statusCode);  
@@ -204,9 +202,9 @@ namespace Tests
             var message = new Content {
                 message = "ping"
             };
-            var json = JsonContent.Create(message);
+            
             ResponseBase result = await _client.Post().Url("http://localhost:3000/ping_pong")
-                .AddJson(json)
+                .AddJson<Content>(message)
                 .Send();
             uint statusCode = result.StatusCode();
             var content = result.Content<Content>();

@@ -8,71 +8,70 @@ using poc_http_client.Models;
 
 namespace poc_http_client.Application
 {
-    public class Post : RequestBase, IPost 
+    public class Patch : RequestBase, IPatch 
     {
-        public Post(ILogger logger, HttpClient client) : base(client, logger)
+        public Patch(ILogger logger, HttpClient client) : base(client, logger)
         {}
         
         
-        public Post Url(string url)
+        public Patch Url(string url)
         {
             base.Url(url);
             return this;
         }
 
-        public Post AddTimeout(uint ms)
+        public Patch AddTimeout(uint ms)
         {
             
             base.AddTimeout(ms);
             return this;
         }
         
-        public Post AddHeader(string key, string value="")
+        public Patch AddHeader(string key, string value="")
         {
             base.AddHeader(key, value);
             return this;
         }
 
-        public Post Retry(int times)
+        public Patch Retry(int times)
         {
             base.Retry(times);
             return this;
         }
 
-        public Post RetryAfterMs(uint ms)
+        public Patch RetryAfterMs(uint ms)
         {
             base.RetryAfterMs(ms);
             return this;
         }
         
-        public Post AddStringPayload(StringContent payload)
+        public Patch AddStringPayload(StringContent payload)
         {
             base.AddBody(payload);
             return this;
         }
         
-        public Post AddFormUrlEncoded(FormUrlEncodedContent payload)
+        public Patch AddFormUrlEncoded(FormUrlEncodedContent payload)
         {
             base.AddBody(payload);
             return this;
         }
         
-        public Post AddFormData(MultipartFormDataContent payload)
+        public Patch AddFormData(MultipartFormDataContent payload)
         {
             base.AddBody(payload);
             return this;
         }
         
-        public Post AddJson<T>(T body)
+        public Patch AddJson(JsonContent json)
         {
-            var jsonBody = JsonContent.Create(body);
-            base.AddBody(jsonBody);
+            base.AddBody(json);
             return this;
         }
         
         public Task<ResponseBase> Send()
         {
-            base._method = "POST";
+            base._method = "Patch";
             Task<ResponseBase> result =  base.Send(); 
             return result;
         }

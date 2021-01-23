@@ -8,71 +8,70 @@ using poc_http_client.Models;
 
 namespace poc_http_client.Application
 {
-    public class Post : RequestBase, IPost 
+    public class Delete : RequestBase, IDelete 
     {
-        public Post(ILogger logger, HttpClient client) : base(client, logger)
+        public Delete(ILogger logger, HttpClient client) : base(client, logger)
         {}
         
         
-        public Post Url(string url)
+        public Delete Url(string url)
         {
             base.Url(url);
             return this;
         }
 
-        public Post AddTimeout(uint ms)
+        public Delete AddTimeout(uint ms)
         {
             
             base.AddTimeout(ms);
             return this;
         }
         
-        public Post AddHeader(string key, string value="")
+        public Delete AddHeader(string key, string value="")
         {
             base.AddHeader(key, value);
             return this;
         }
 
-        public Post Retry(int times)
+        public Delete Retry(int times)
         {
             base.Retry(times);
             return this;
         }
 
-        public Post RetryAfterMs(uint ms)
+        public Delete RetryAfterMs(uint ms)
         {
             base.RetryAfterMs(ms);
             return this;
         }
         
-        public Post AddStringPayload(StringContent payload)
+        public Delete AddStringPayload(StringContent payload)
         {
             base.AddBody(payload);
             return this;
         }
         
-        public Post AddFormUrlEncoded(FormUrlEncodedContent payload)
+        public Delete AddFormUrlEncoded(FormUrlEncodedContent payload)
         {
             base.AddBody(payload);
             return this;
         }
         
-        public Post AddFormData(MultipartFormDataContent payload)
+        public Delete AddFormData(MultipartFormDataContent payload)
         {
             base.AddBody(payload);
             return this;
         }
         
-        public Post AddJson<T>(T body)
+        public Delete AddJson(JsonContent json)
         {
-            var jsonBody = JsonContent.Create(body);
-            base.AddBody(jsonBody);
+            base.AddBody(json);
             return this;
         }
         
         public Task<ResponseBase> Send()
         {
-            base._method = "POST";
+            base._method = "DELETE";
             Task<ResponseBase> result =  base.Send(); 
             return result;
         }

@@ -13,15 +13,10 @@ namespace poc_http_client.Application
         Post AddTimeout(uint ms);
         Post AddHeader(string key, string value);
         Post Retry(int times);
-        
         Post RetryAfterMs(uint ms);
         public Post AddStringPayload(StringContent payload);
         public Post AddFormUrlEncoded(FormUrlEncodedContent payload);
         public Post AddFormData(MultipartFormDataContent payload);
-        public Post AddJson(JsonContent json);
-
-
-
-
+        public Post AddJson<T>(T body);
     }
 }
